@@ -3,164 +3,514 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Majlis Citra JK Hadiah - 现场执行清单</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Majlis Citra JK Hadiah - 专属任务清单</title>
     <style>
-        body { background-color: #f4f6f5; color: #4a5568; }
-        .task-item { transition: all 0.3s ease; }
-        .task-item.completed { opacity: 0.4; text-decoration: line-through; background-color: #e2e8f0; }
-        .morandi-green { background-color: #7b9095; }
-        .morandi-blue { background-color: #8fa5b1; }
-        .morandi-sand { background-color: #cbbba0; }
-        .highlight-red { color: #d97777; font-weight: bold; }
+        :root {
+            --primary: #4F46E5;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #1F2937;
+            --gray: #9CA3AF;
+            --bg: #F3F4F6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding-bottom: 30px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .canva-link {
+            display: inline-block;
+            background-color: #00C4CC;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .canva-link:hover {
+            transform: scale(1.05);
+        }
+
+        /* 进度条样式 */
+        .progress-wrapper {
+            padding: 20px;
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .progress-bar-container {
+            height: 12px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #34d399, #10b981);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* 任务分类标题 */
+        .section-title {
+            padding: 10px 20px;
+            background-color: #f1f5f9;
+            margin: 20px 0 10px 0;
+            border-left: 5px solid var(--primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 任务列表 */
+        .task-list {
+            padding: 0 20px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .task-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-color: var(--primary);
+        }
+
+        /* 自定义复选框 */
+        .checkbox-container {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 0;
+            cursor: pointer;
+            font-size: 1rem;
+            user-select: none;
+            width: 100%;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: #fff;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .task-item:hover input ~ .checkmark {
+            border-color: var(--primary);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 8px;
+            top: 4px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* 已完成状态：文本置灰 */
+        .task-item.completed {
+            background-color: #f8fafc;
+            border-color: #e2e8f0;
+            opacity: 0.7;
+        }
+
+        .task-item.completed .task-content {
+            color: var(--gray);
+        }
+        
+        .task-item.completed .highlight,
+        .task-item.completed .tag,
+        .task-item.completed span[style] {
+            filter: grayscale(100%);
+            opacity: 0.8;
+        }
+
+        /* 文本与排版高亮 */
+        .task-content {
+            margin-top: 2px;
+            transition: color 0.3s;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin: 0 4px;
+        }
+        .tag-red { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .tag-blue { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+        .tag-orange { background: #ffedd5; color: #9a3412; border: 1px solid #fdba74; }
+        .tag-yellow { background: #fef08a; color: #854d0e; border: 1px solid #fde047; }
+        
+        .highlight {
+            font-weight: bold;
+        }
+        .text-red { color: #dc2626; }
+        .text-purple { color: #7e22ce; }
+        .text-blue { color: #2563eb; }
+        
+        .sub-list {
+            margin-top: 8px;
+            padding-left: 20px;
+            border-left: 2px dashed #cbd5e1;
+            list-style-type: none;
+        }
+        
+        .sub-list li {
+            margin-bottom: 6px;
+            position: relative;
+        }
+        
+        .sub-list li:before {
+            content: "👉";
+            position: absolute;
+            left: -24px;
+        }
+
     </style>
 </head>
-<body class="p-4 md:p-8 max-w-3xl mx-auto font-sans">
+<body>
 
-    <!-- 顶部标题与 Canva 链接 -->
-    <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border-t-4" style="border-color: #7b9095;">
-        <h1 class="text-2xl font-bold mb-4 text-gray-800">🎁 Majlis Citra JK Hadiah (提醒 Joyie)</h1>
-        
-        <a href="https://canva.link/oqff6g5prx8zas7" target="_blank" class="block w-full text-center morandi-green hover:opacity-90 text-white font-bold py-3 px-4 rounded-lg shadow-sm transition mb-2">
-            🎨 查看 Canva 礼物说明与现场 Floor Plan 以及活动 tentative program
+<div class="container">
+    <div class="header">
+        <h1>✨ Majlis Citra JK Hadiah</h1>
+        <p>专属任务提醒 (To: <strong>Joyie</strong>)</p>
+        <a href="https://canva.link/oqff6g5prx8zas7" target="_blank" class="canva-link">
+            🎨 打开 Canva 文件<br><small>(可按需求随心无限放大🔍)</small>
         </a>
-        <p class="text-sm text-center text-gray-500">💡 提示：这个 Canva 画面可按需求随心无限放大</p>
     </div>
 
-    <!-- 核心数据看板 -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #8fa5b1;">
-            <div class="text-2xl font-bold text-gray-700">31</div>
-            <div class="text-xs text-gray-500">总礼物份数</div>
+    <div class="progress-wrapper">
+        <div class="progress-header">
+            <span>🚀 任务进度</span>
+            <span id="progress-text">0 / 16</span>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #8fa5b1;">
-            <div class="text-2xl font-bold text-gray-700">35</div>
-            <div class="text-xs text-gray-500">总物品件数</div>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #cbbba0;">
-            <div class="text-2xl font-bold text-gray-700">8</div>
-            <div class="text-xs text-gray-500">奕进负责份数</div>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #d97777;">
-            <div class="text-2xl font-bold text-gray-700">4</div>
-            <div class="text-xs text-gray-500">二合一组合</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
     </div>
 
-    <!-- 现场执行清单 -->
-    <div class="bg-white rounded-xl shadow-sm p-4 md:p-6">
-        <h2 class="text-lg font-bold mb-4 text-gray-800 border-b pb-2">📋 现场任务打卡 (点击方框勾选)</h2>
-        <div class="space-y-3" id="taskList">
-            
-            <!-- 抵达与位置 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>抵达与停车：</strong> Park在 Tingkat 3，停车费需自理（若不知怎么去，可留意早上 raptai 别人怎么说，或私下问 Azwan）。
-                </span>
-            </label>
-            
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>礼物桌位置：</strong> 现场礼物置放在面向舞台的左侧，备有桌子（详见 Canva 内图解）。
-                </span>
-            </label>
+    <!-- Section 1 -->
+    <div class="section-title">🚗 行程与场地</div>
+    <div class="task-list">
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    Park在 <span class="highlight text-blue">Tingkat 3</span>，会议说明 <strong>Parking Fee 需自付</strong> 🅿️。
+                    <br><small style="color: #64748b;">(如果不知道怎么去，看看早上 raptai 有没有人提，或者私下问 Azwan)</small>
+                </div>
+            </div>
+        </label>
+    </div>
 
-            <!-- 奕进礼物处理 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>奕进的礼物：</strong> 共 8 份（9 样东西，含 1 份二合一）。Canva 中标为<span class="bg-yellow-100 px-1 rounded text-yellow-700 font-bold">黄/橙底色</span>。<br>
-                    <span class="highlight-red">⚠️ 警告：奕进那边的全部 9 样东西，所有 Price Tag 都必须撕掉！</span>
-                </span>
-            </label>
+    <!-- Section 2 -->
+    <div class="section-title">🤝 现场部署与摆放</div>
+    <div class="task-list">
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    <strong>寻找搬运救兵 💪：</strong><br>
+                    - <span class="highlight">Azwan</span>: 他已和RUBY说愿意帮JK Hadiah搬抬（他也是酒店联系人，如有需要可问他要手推车）<br>
+                    - <span class="highlight">Abu Bakr</span>: Floor manager，也可找他<br>
+                    - <span class="highlight">奕进</span>: 有情相助
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content" style="font-size: 1.1em;">
+                    <strong>摆放位置 📍：</strong> 面向舞台的 <strong>左侧</strong>，备有桌子。<br>
+                    <span class="tag tag-blue" style="font-size: 1em; padding: 5px 10px; margin-top: 5px;">🗺️ 详见 Canva Floor Plan</span>
+                </div>
+            </div>
+        </label>
+    </div>
 
-            <!-- 二合一组合打包 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>二合一组合打包：</strong> 共 4 份，Canva 中标为<span class="bg-red-100 px-1 rounded text-red-700 font-bold">红底色</span>。用胶带（炫彩色&透明）大概“捆”起来。怕炫彩不够用，建议先用透明胶带裹一圈。
-                    <ul class="list-disc ml-5 mt-2 text-gray-600 space-y-1">
-                        <li><strong>Set 1:</strong> Yoga mat + Towel</li>
-                        <li><strong>Set 2:</strong> DIY 牌 coat rack + sidetable <span class="highlight-red">(价格问题，coat rack 必须是 MrDiy 品牌)</span></li>
-                        <li><strong>Set 3:</strong> 棕色盒子 coat rack + floor mat</li>
-                        <li><strong>Set 4:</strong> Camping chair & light</li>
+    <!-- Section 3 -->
+    <div class="section-title">📦 礼物清点与去价签</div>
+    <div class="task-list">
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    核对总数：一共 <strong class="text-blue">31份礼物</strong> 🎁 
+                    (30份 sagu hati + 1份 grand prize)。
+                    <br><small>一共36样东西：其中4份是二合一组合，grand prize是1份是mock-up cheque + 1个信封。</small>
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    核对 <span class="tag tag-yellow">奕进那边的8份礼物</span> (9样东西，含1个二合一)。
+                    <br>💡 Canva对照：<span class="highlight" style="color: #ea580c;">黄 & 橙底色</span> 的8份。
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content" style="font-size: 1.1em;">
+                    ⚠️ <span class="highlight text-red">极度重要：</span>奕进那边全部9样东西的 <strong>所有 Price Tag 都要撕掉！</strong>
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    一些小体积礼物：都装在准备好的 <span class="highlight">3个环保袋</span> 里了 🛍️
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section-title">🎀 礼物加工与包装</div>
+    <div class="task-list">
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    使用准备好的双面胶，给每个 sagu hati 贴上 <strong>号码 & Ribbon 🎀</strong>。
+                    <br><small>👉 <strong>贴位建议：</strong>直接贴在 price tag 撕掉的地方！</small>
+                    <br><small>👉 <strong>规则：</strong>号码顺序 & 颜色可随意安排，同款礼物可以不连号（会议已决）。</small>
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    处理 <span class="tag tag-red">4份二合一组合</span> (Canva对照：<strong>红底色</strong>)。用胶带大概大概“捆”起来：
+                    <br><small class="text-purple">💡 建议先用透明胶带裹一圈，再用炫彩色，怕炫彩不够用。</small>
+                    <ul class="sub-list">
+                        <li><strong>Set 1:</strong> Yoga mat + Towel 🧘‍♀️</li>
+                        <li><strong>Set 2:</strong> DIY牌 Coat rack + Sidetable <br><span class="text-red">*(注意：由于价格组合问题，Set 2的Coat rack 必须是 MrDiy 的那款)*</span></li>
+                        <li><strong>Set 3:</strong> 纸皮/棕色盒子 Coat rack + Floor mat 🚪</li>
+                        <li><strong>Set 4:</strong> Camping chair & Light 🏕️</li>
                     </ul>
-                </span>
-            </label>
-
-            <!-- 礼物号码与包装 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>号码与 Ribbon：</strong> 用双面胶给每份 Sagu Hati 贴上号码 & Ribbon。顺序和颜色随意，同样礼物可不连号。建议把号码贴在撕掉 Price Tag 的位置。
-                </span>
-            </label>
-
-            <!-- 现场支援 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>搬运支援：</strong> Azwan 私下跟 RUBY 提过愿意帮忙搬抬，现场直接联系他（需手推车也可问他）。找 Abu Bakr (Floor Manager) 或奕进有情相助也行。
-                </span>
-            </label>
-            
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>技术与名单：</strong> 已确认 JK Teknikal (Azwan) 会准备 Wheel of Names，并由他向 JK Pendaftaran 拿现场出席名单。
-                </span>
-            </label>
-
-            <!-- 抽奖流程与发奖 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>抽奖流程：</strong> 具体抽奖环节与流程，请参考 Canva 里面的部分 Tentatif Program。
-                </span>
-            </label>
-
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>拍照记录 (记录用)：</strong> 抽奖结果出来后，要快快拍照/记录有关礼物的顺序。
-                </span>
-            </label>
-
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>拍照核销 (领奖用)：</strong> 每个得奖者领礼物时必须拍照：<strong>拍人 + 礼物</strong>，证明礼物已被本人 Claim 走。
-                </span>
-            </label>
-
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>Grand Prize 发放：</strong> 信封里面是打印的 e-voucher，得奖者需向 <strong>REMI</strong> 领取 e-voucher 电子版 (PDF)。
-                </span>
-            </label>
-
-            <!-- 善后交接 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>物资归还：</strong> 小体积礼物已装在准备好的 3 个环保袋中；剩余的胶带、双面胶、Ribbon 连同这 3 个环保袋，活动后需交还给 <strong>REMI</strong>。
-                </span>
-            </label>
-        </div>
+                </div>
+            </div>
+        </label>
     </div>
 
-    <script>
-        function toggleTask(checkbox) {
-            const label = checkbox.closest('.task-item');
-            if (checkbox.checked) {
-                label.classList.add('completed');
-            } else {
-                label.classList.remove('completed');
-            }
+    <!-- Section 5 -->
+    <div class="section-title">📸 抽奖环节 (关键任务)</div>
+    <div class="task-list">
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    确认名单 & 轮盘 🎡：JK Teknikal (Azwan) 负责 Wheel of Names，他会向 JK Pendaftaran 拿出席名单。
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    把控环节节奏 ⏱️：共2个环节，每次抽15份。
+                    <br><strong class="text-red">Grand Prize 紧跟在第二个抽奖环节后！</strong>
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    处理 <strong>Grand Prize</strong> 🏆：信封里是打印的 e-voucher。
+                    <br><span class="text-blue">提醒得奖者：向 <strong>REMI</strong> 领取 e-voucher 电子版(PDF)！</span>
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    <span class="highlight text-purple">⚡ 速度要快：</span> 抽奖结果出来后，<strong>快快拍照/记录</strong> 对应的礼物顺序！
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content" style="font-size: 1.05em;">
+                    📸 <strong>颁奖留证：</strong> 每个得奖者领礼物时 <strong>必须拍照（拍人 + 礼物）</strong>，证明礼物已被本人 Claim 走。
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="section-title">♻️ 活动后善后</div>
+    <div class="task-list">
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    将 <strong>3个环保袋</strong> 归还给 REMI ♻️。
+                </div>
+            </div>
+        </label>
+        <label class="task-item">
+            <div class="checkbox-container">
+                <input type="checkbox" class="task-checkbox">
+                <span class="checkmark"></span>
+                <div class="task-content">
+                    将剩余物资（炫彩色/透明胶带、双面胶）<strong>交回给REMI</strong>，供下次活动使用 📦。
+                </div>
+            </div>
+        </label>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('.task-checkbox');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const totalTasks = checkboxes.length;
+
+        // 初始化进度文字
+        progressText.textContent = `0 / ${totalTasks}`;
+
+        checkboxes.forEach(box => {
+            box.addEventListener('change', function() {
+                // 获取复选框的最外层父级容器 (.task-item)
+                const taskItem = this.closest('.task-item');
+                
+                // 根据勾选状态添加/移除置灰样式
+                if(this.checked) {
+                    taskItem.classList.add('completed');
+                } else {
+                    taskItem.classList.remove('completed');
+                }
+
+                // 更新进度条
+                updateProgress();
+            });
+        });
+
+        function updateProgress() {
+            const checkedBoxes = document.querySelectorAll('.task-checkbox:checked').length;
+            const percentage = (checkedBoxes / totalTasks) * 100;
+            
+            progressBar.style.width = percentage + '%';
+            progressText.textContent = `${checkedBoxes} / ${totalTasks}`;
         }
-    </script>
+    });
+</script>
+
 </body>
 </html>
