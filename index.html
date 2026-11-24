@@ -15,73 +15,73 @@
         .highlight-red { color: #d97777; font-weight: bold; }
     </style>
 </head>
-<body class="p-4 md:p-8 max-w-3xl mx-auto font-sans">
+<body class="p-4 md:p-8 max-w-3xl mx-auto font-sans text-lg">
 
     <!-- 顶部标题与 Canva 链接 -->
-    <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border-t-4" style="border-color: #7b9095;">
-        <h1 class="text-2xl font-bold mb-4 text-gray-800">🎁 Majlis Citra JK Hadiah (提醒 Joyie)</h1>
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-8 border-t-4" style="border-color: #7b9095;">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">🎁 Majlis Citra JK Hadiah (提醒 Joyie)</h1>
         
-        <a href="https://canva.link/oqff6g5prx8zas7" target="_blank" class="block w-full text-center morandi-green hover:opacity-90 text-white font-bold py-3 px-4 rounded-lg shadow-sm transition mb-2">
+        <a href="https://canva.link/oqff6g5prx8zas7" target="_blank" class="block w-full text-center morandi-green hover:opacity-90 text-white font-bold py-4 px-6 rounded-lg shadow-sm transition mb-3 text-xl">
             🎨 查看 Canva 礼物说明与现场 Floor Plan 以及活动 tentative program
         </a>
-        <p class="text-sm text-center text-gray-500">💡 提示：这个 Canva 画面可按需求随心无限放大</p>
+        <p class="text-base text-center text-gray-500 font-medium">💡 提示：这个 Canva 画面可按需求随心无限放大</p>
     </div>
 
     <!-- 核心数据看板 -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #8fa5b1;">
-            <div class="text-2xl font-bold text-gray-700">31</div>
-            <div class="text-xs text-gray-500">总礼物份数</div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-5 rounded-xl shadow-sm text-center border-l-4" style="border-color: #8fa5b1;">
+            <div class="text-4xl font-bold text-gray-700">31</div>
+            <div class="text-sm font-medium text-gray-500 mt-1">总礼物份数</div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #8fa5b1;">
-            <div class="text-2xl font-bold text-gray-700">35</div>
-            <div class="text-xs text-gray-500">总物品件数</div>
+        <div class="bg-white p-5 rounded-xl shadow-sm text-center border-l-4" style="border-color: #8fa5b1;">
+            <div class="text-4xl font-bold text-gray-700">35</div>
+            <div class="text-sm font-medium text-gray-500 mt-1">总物品件数</div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #cbbba0;">
-            <div class="text-2xl font-bold text-gray-700">8</div>
-            <div class="text-xs text-gray-500">奕进负责份数</div>
+        <div class="bg-white p-5 rounded-xl shadow-sm text-center border-l-4" style="border-color: #cbbba0;">
+            <div class="text-4xl font-bold text-gray-700">8</div>
+            <div class="text-sm font-medium text-gray-500 mt-1">奕进负责份数</div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm text-center border-l-4" style="border-color: #d97777;">
-            <div class="text-2xl font-bold text-gray-700">4</div>
-            <div class="text-xs text-gray-500">二合一组合</div>
+        <div class="bg-white p-5 rounded-xl shadow-sm text-center border-l-4" style="border-color: #d97777;">
+            <div class="text-4xl font-bold text-gray-700">4</div>
+            <div class="text-sm font-medium text-gray-500 mt-1">二合一组合</div>
         </div>
     </div>
 
     <!-- 现场执行清单 -->
-    <div class="bg-white rounded-xl shadow-sm p-4 md:p-6">
-        <h2 class="text-lg font-bold mb-4 text-gray-800 border-b pb-2">📋 现场任务打卡 (点击方框勾选)</h2>
-        <div class="space-y-3" id="taskList">
+    <div class="bg-white rounded-xl shadow-sm p-5 md:p-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3">📋 现场任务打卡 (点击方框勾选)</h2>
+        <div class="space-y-4" id="taskList">
             
             <!-- 抵达与位置 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>抵达与停车：</strong> Park在 Tingkat 3，停车费需自理（若不知怎么去，可留意早上 raptai 别人怎么说，或私下问 Azwan）。
                 </span>
             </label>
             
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>礼物桌位置：</strong> 现场礼物置放在面向舞台的左侧，备有桌子（详见 Canva 内图解）。
                 </span>
             </label>
 
             <!-- 奕进礼物处理 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>奕进的礼物：</strong> 共 8 份（9 样东西，含 1 份二合一）。Canva 中标为<span class="bg-yellow-100 px-1 rounded text-yellow-700 font-bold">黄/橙底色</span>。<br>
-                    <span class="highlight-red">⚠️ 警告：奕进那边的全部 9 样东西，所有 Price Tag 都必须撕掉！</span>
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
+                    <strong>奕进的礼物：</strong> 共 8 份（9 样东西，含 1 份二合一）。Canva 中标为<span class="bg-yellow-100 px-2 py-1 rounded text-yellow-700 font-bold">黄/橙底色</span>。<br>
+                    <span class="highlight-red inline-block mt-1">⚠️ 警告：奕进那边的全部 9 样东西，所有 Price Tag 都必须撕掉！</span>
                 </span>
             </label>
 
             <!-- 二合一组合打包 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>二合一组合打包：</strong> 共 4 份，Canva 中标为<span class="bg-red-100 px-1 rounded text-red-700 font-bold">红底色</span>。用胶带（炫彩色&透明）大概“捆”起来。怕炫彩不够用，建议先用透明胶带裹一圈。
-                    <ul class="list-disc ml-5 mt-2 text-gray-600 space-y-1">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
+                    <strong>二合一组合打包：</strong> 共 4 份，Canva 中标为<span class="bg-red-100 px-2 py-1 rounded text-red-700 font-bold">红底色</span>。用胶带（炫彩色&透明）大概“捆”起来。怕炫彩不够用，建议先用透明胶带裹一圈。
+                    <ul class="list-disc ml-6 mt-3 text-gray-700 space-y-2 font-medium">
                         <li><strong>Set 1:</strong> Yoga mat + Towel</li>
                         <li><strong>Set 2:</strong> DIY 牌 coat rack + sidetable <span class="highlight-red">(价格问题，coat rack 必须是 MrDiy 品牌)</span></li>
                         <li><strong>Set 3:</strong> 棕色盒子 coat rack + floor mat</li>
@@ -91,61 +91,61 @@
             </label>
 
             <!-- 礼物号码与包装 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>号码与 Ribbon：</strong> 用双面胶给每份 Sagu Hati 贴上号码 & Ribbon。顺序和颜色随意，同样礼物可不连号。建议把号码贴在撕掉 Price Tag 的位置。
                 </span>
             </label>
 
             <!-- 现场支援 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
-                    <strong>搬运支援：</strong> Azwan 私下跟 RUBY 提过愿意帮忙搬抬，现场直接联系他（需手推车也可问他）。找 Abu Bakr (Floor Manager) 或奕进有情相助也行。
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
+                    <strong>搬运支援：</strong> Azwan 私下跟 <strong>RUBY</strong> 提过愿意帮忙搬抬，现场直接联系他（需手推车也可问他）。找 Abu Bakr (Floor Manager) 或奕进有情相助也行。
                 </span>
             </label>
             
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>技术与名单：</strong> 已确认 JK Teknikal (Azwan) 会准备 Wheel of Names，并由他向 JK Pendaftaran 拿现场出席名单。
                 </span>
             </label>
 
             <!-- 抽奖流程与发奖 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>抽奖流程：</strong> 具体抽奖环节与流程，请参考 Canva 里面的部分 Tentatif Program。
                 </span>
             </label>
 
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>拍照记录 (记录用)：</strong> 抽奖结果出来后，要快快拍照/记录有关礼物的顺序。
                 </span>
             </label>
 
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>拍照核销 (领奖用)：</strong> 每个得奖者领礼物时必须拍照：<strong>拍人 + 礼物</strong>，证明礼物已被本人 Claim 走。
                 </span>
             </label>
 
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>Grand Prize 发放：</strong> 信封里面是打印的 e-voucher，得奖者需向 <strong>REMI</strong> 领取 e-voucher 电子版 (PDF)。
                 </span>
             </label>
 
             <!-- 善后交接 -->
-            <label class="task-item flex items-start p-3 rounded-lg border border-gray-100 cursor-pointer">
-                <input type="checkbox" class="mt-1 mr-3 w-5 h-5 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
-                <span class="text-sm leading-relaxed">
+            <label class="task-item flex items-start p-4 rounded-lg border border-gray-100 cursor-pointer">
+                <input type="checkbox" class="mt-1 mr-4 w-6 h-6 rounded text-blue-500 border-gray-300 focus:ring-blue-400" onclick="toggleTask(this)">
+                <span class="text-lg leading-relaxed">
                     <strong>物资归还：</strong> 小体积礼物已装在准备好的 3 个环保袋中；剩余的胶带、双面胶、Ribbon 连同这 3 个环保袋，活动后需交还给 <strong>REMI</strong>。
                 </span>
             </label>
