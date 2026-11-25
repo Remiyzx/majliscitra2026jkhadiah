@@ -209,6 +209,7 @@
         
         .task-item.completed .highlight,
         .task-item.completed .tag,
+        .task-item.completed .video-link,
         .task-item.completed span[style] {
             filter: grayscale(100%);
             opacity: 0.8;
@@ -232,6 +233,25 @@
         .tag-blue { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
         .tag-orange { background: #ffedd5; color: #9a3412; border: 1px solid #fdba74; }
         .tag-yellow { background: #fef08a; color: #854d0e; border: 1px solid #fde047; }
+
+        /* 视频路线链接标签 */
+        .video-link {
+            display: inline-block;
+            background-color: #eef2ff;
+            color: #4338ca;
+            border: 1px solid #c7d2fe;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 6px;
+            margin-right: 6px;
+            transition: background-color 0.2s;
+        }
+        .video-link:hover {
+            background-color: #e0e7ff;
+        }
         
         .highlight {
             font-weight: bold;
@@ -290,7 +310,9 @@
                 <span class="checkmark"></span>
                 <div class="task-content">
                     Park在 <span class="highlight text-blue">Tingkat 3</span>，会议说明 <strong>Parking Fee 需自付</strong> 🅿️。
-                    <br><small style="color: #64748b;">(如果不知道怎么去，看看早上 raptai 有没有人提，或者私下问 Azwan)</small>
+                    <br><small style="color: #64748b;">Azwan在群里发了视频路线，可参考：</small><br>
+                    <a href="https://umsedumy-my.sharepoint.com/:v:/g/personal/zixian_yzx_ums_edu_my/IQBSlvxd0IG4QKVk5lfABH-LAVA-VwzPnTCbGBLNArHzw70?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=kZegdO" target="_blank" class="video-link" onclick="event.stopPropagation()">🎬 从 Parking 去现场</a>
+                    <a href="https://umsedumy-my.sharepoint.com/:v:/g/personal/zixian_yzx_ums_edu_my/IQBmCqVz1Tc9SIOGF88mJUOhARtv8VW19crrZdIdarfHGl4?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=vhQ4dT" target="_blank" class="video-link" onclick="event.stopPropagation()">🎬 从 Lobby 去现场</a>
                 </div>
             </div>
         </label>
